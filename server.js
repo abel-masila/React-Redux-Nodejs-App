@@ -29,7 +29,7 @@ mongoose
 
 //Use Routes
 app.use("/api/users", users);
-app.use("/api/profile", posts);
+app.use("/api/profile", profile);
 app.use("/api/posts", posts);
 
 app.listen(port, () => {
