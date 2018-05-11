@@ -7,14 +7,6 @@ const passport = require("passport");
 const User = require("./../../models/User");
 const Profile = require("./../../models/Profile");
 const validateProfileInput = require("./../../validation/profile");
-// @route GET /api/profile/test
-// @desc Test posts route
-// @access public
-router.get("/test", (req, res) => {
-  res.json({
-    message: "profile works"
-  });
-});
 
 // @route GET /api/profile/
 // @desc Get current user profile
@@ -36,6 +28,58 @@ router.get(
       .catch(err => res.status(404).json(err));
   }
 );
+// @route GET /api/profile/all
+// @desc Get all profiles
+// @access Public
+router.get("/all", (req, res) => {
+  const errors = {};
+  Profile.find()
+    .populate("user", ["name", "avatar"])
+    .then(profiles => {
+      if (!profiles) {
+        errors.noprofile = "There are no profiles!";
+        return res.status(404).json(errors);
+      }
+      res.status(200).json(profiles);
+    })
+    .catch(err => res.status(404).json(err));
+});
+
+// @route GET /api/profile/handle/:handle
+// @desc Get  profile by handle
+// @access Public
+router.get("/handle/:handle", (req, res) => {
+  const errors = {};
+  Profile.findOne({ handle: req.params.handle })
+    .populate("user", ["name", "avatar"])
+    .then(profile => {
+      if (!profile) {
+        errors.noprofile = "There's not profile for this user!";
+        res.status(404).json(errors);
+      }
+      res.status(200).json(profile);
+    })
+    .catch(err => res.status(404).json(err));
+});
+// @route GET /api/profile/user/:user_id
+// @desc Get  profile by id
+// @access Public
+router.get("/user/:user_id", (req, res) => {
+  const errors = {};
+  Profile.findOne({ user: req.params.user_id })
+    .populate("user", ["name", "avatar"])
+    .then(profile => {
+      if (!profile) {
+        errors.noprofile = "There's not profile for this user!";
+        res.status(404).json(errors);
+      }
+      res.status(200).json(profile);
+    })
+    .catch(err =>
+      res.status(404).json({ profile: "There's not profile for this user!" })
+    );
+});
+
 // @route Post /api/profile/
 // @desc create/edit user profile
 // @access Private
