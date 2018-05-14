@@ -14,7 +14,7 @@ app.use(passport.initialize());
 
 //passport config
 require("./config/passport.js")(passport);
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8083;
 //db config
 const db = require("./config/keys").mongoURI;
 //connect to mongodb
