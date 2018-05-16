@@ -5,7 +5,10 @@ body {
 }
 
 .footer {
-  position: relative;
+  position: fixed;
+  right: 0;
   bottom: 0;
-  width: 100%;
+  left: 0;
+  padding: 1rem;
+  text-align: center;
 }
