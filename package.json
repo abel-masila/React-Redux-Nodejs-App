@@ -6,16 +6,22 @@
   "scripts": {
     "client-install": "npm install --prefix client",
     "server": "nodemon server.js",
-    "dev": "concurrently \"npm run server\" \"npm run client \"",
-    "client": "npm start --prefix client"
+    "client": "cd client && yarn start",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
   },
-  "keywords": ["Node", "JS", "ReactJS", "es6", "mongodb", "redux"],
+  "keywords": [
+    "Node",
+    "JS",
+    "ReactJS",
+    "es6",
+    "mongodb",
+    "redux"
+  ],
   "author": "Abel Masila",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
-    "concurrently": "^3.5.1",
     "express": "^4.16.3",
     "gravatar": "^1.6.0",
     "jsonwebtoken": "^8.2.1",
@@ -23,5 +29,8 @@
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "validator": "^10.2.0"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.1"
   }
 }
