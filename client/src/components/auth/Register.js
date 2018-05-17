@@ -1,18 +1,19 @@
-import React, { Component } from "react";
-import classnames from "classnames";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import classnames from 'classnames';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-import { registerUser } from "./../../actions/authActions";
+import { registerUser } from './../../actions/authActions';
 
 class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
-      email: "",
-      password: "",
-      password2: "",
+      name: '',
+      email: '',
+      password: '',
+      password2: '',
       errors: {}
     };
     this.onChange = this.onChange.bind(this);
@@ -20,6 +21,11 @@ class Register extends Component {
   }
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
   }
   onSubmit(e) {
     e.preventDefault();
@@ -29,7 +35,7 @@ class Register extends Component {
       password: this.state.password,
       password2: this.state.password2
     };
-    this.props.registerUser(newUser);
+    this.props.registerUser(newUser, this.props.history);
   }
   render() {
     const { errors } = this.state;
@@ -46,8 +52,8 @@ class Register extends Component {
                 <div className="form-group">
                   <input
                     type="text"
-                    className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.name
+                    className={classnames('form-control form-control-lg', {
+                      'is-invalid': errors.name
                     })}
                     placeholder="Name"
                     name="name"
@@ -61,8 +67,8 @@ class Register extends Component {
                 <div className="form-group">
                   <input
                     type="email"
-                    className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.email
+                    className={classnames('form-control form-control-lg', {
+                      'is-invalid': errors.email
                     })}
                     placeholder="Email Address"
                     name="email"
@@ -80,8 +86,8 @@ class Register extends Component {
                 <div className="form-group">
                   <input
                     type="password"
-                    className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.password
+                    className={classnames('form-control form-control-lg', {
+                      'is-invalid': errors.password
                     })}
                     placeholder="Password"
                     name="password"
@@ -95,8 +101,8 @@ class Register extends Component {
                 <div className="form-group">
                   <input
                     type="password"
-                    className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.password2
+                    className={classnames('form-control form-control-lg', {
+                      'is-invalid': errors.password2
                     })}
                     placeholder="Confirm Password"
                     name="password2"
@@ -118,11 +124,13 @@ class Register extends Component {
 }
 Register.protoTypes = {
   registerUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  errors: state.errors
 });
 export default connect(mapStateToProps, {
   registerUser
-})(Register);
+})(withRouter(Register));
