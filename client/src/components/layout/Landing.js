@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 class Landing extends Component {
   componentDidMount() {
-    //check to see if we are logged in
+    //check to see if user is logged in
     if (this.props.auth.isAuthenticated) {
       this.props.history.push('/dashboard');
     }
