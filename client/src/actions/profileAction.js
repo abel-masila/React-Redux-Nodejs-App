@@ -28,3 +28,11 @@ export const clearCurrentProfile = () => {
     type: CLEAR_CURRENT_PROFILE
   };
 };
+
+//create profile
+export const createProfile = (profile, history) => dispatch => {
+  axios
+    .post('/api/profile', profile)
+    .then(res => history.push('/dashboard'))
+    .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
+};
