@@ -3,12 +3,19 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { getCurrentProfile } from './../../actions/profileAction';
+import {
+  getCurrentProfile,
+  deleteAccount
+} from './../../actions/profileAction';
 import Spinner from './../common/Spinner';
+import ProfileAction from './ProfileActions';
 
 class Dashboard extends Component {
   componentDidMount() {
     this.props.getCurrentProfile();
+  }
+  onDeleteClick(e) {
+    this.props.deleteAccount();
   }
   render() {
     const { user } = this.props.auth;
@@ -19,7 +26,28 @@ class Dashboard extends Component {
     } else {
       //check if logged in user has profile data
       if (Object.keys(profile).length > 0) {
-        dashboardContent = <h4> Display profile </h4>;
+        dashboardContent = (
+          <div>
+            <p className="lead text-muted">
+              {' '}
+              Welcome{' '}
+              <Link to={`/profile/${profile.handle}`}>
+                {' '}
+                {user.name.toUpperCase()}{' '}
+              </Link>
+            </p>
+            <ProfileAction />
+            {/* Todo Experience and education */}
+            <div style={{ marginBottom: '60px' }}>
+              <button
+                className="btn btn-danger"
+                onClick={this.onDeleteClick.bind(this)}
+              >
+                Delete my account
+              </button>
+            </div>
+          </div>
+        );
       } else {
         //User is logged in but has no profile
         dashboardContent = (
@@ -57,6 +85,9 @@ const mapStateToProps = state => ({
 Dashboard.propTypes = {
   profile: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
-  getCurrentProfile: PropTypes.func.isRequired
+  getCurrentProfile: PropTypes.func.isRequired,
+  deleteAccount: PropTypes.func
 };
-export default connect(mapStateToProps, { getCurrentProfile })(Dashboard);
+export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(
+  Dashboard
+);
