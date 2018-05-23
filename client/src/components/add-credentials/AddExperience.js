@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 import TextFieldGroup from './../common/TextFieldGroup';
 import TextAreaFieldGroup from './../common/TextAreaFieldGroup';
 
+import { addExperience } from './../../actions/profileAction';
+
 class AddExperience extends Component {
   constructor(props) {
     super(props);
@@ -29,7 +31,16 @@ class AddExperience extends Component {
   }
   onSubmit(e) {
     e.preventDefault();
-    console.log('submit');
+    const experience = {
+      company: this.state.company,
+      title: this.state.title,
+      from: this.state.from,
+      to: this.state.to,
+      location: this.state.location,
+      current: this.state.current,
+      description: this.state.description
+    };
+    this.props.addExperience(experience, this.props.history);
   }
   onCheck(e) {
     this.setState({
@@ -132,10 +143,13 @@ class AddExperience extends Component {
 }
 AddExperience.propTypes = {
   profile: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
+  addExperience: PropTypes.func.isRequired
 };
 const mapPropsToState = state => ({
   errors: state.errors,
   profile: state.profile
 });
-export default connect(mapPropsToState)(withRouter(AddExperience));
+export default connect(mapPropsToState, { addExperience })(
+  withRouter(AddExperience)
+);
