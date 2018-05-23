@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import Experience from './Experience';
+import Education from './Education';
 import {
   getCurrentProfile,
   deleteAccount
@@ -37,7 +39,8 @@ class Dashboard extends Component {
               </Link>
             </p>
             <ProfileAction />
-            {/* Todo Experience and education */}
+            <Experience experience={profile.experience} />
+            <Education education={profile.education} />
             <div style={{ marginBottom: '60px' }}>
               <button
                 className="btn btn-danger"
