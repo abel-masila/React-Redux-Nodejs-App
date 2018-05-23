@@ -41,12 +41,14 @@ class Profile extends Component {
             education={profile.education}
             experience={profile.experience}
           />
-          <ProfileGithub />
+          {profile.githubusername ? (
+            <ProfileGithub username={profile.githubusername} />
+          ) : null}
         </div>
       );
     }
     return (
-      <div className="profile">
+      <div className="profile" style={{ marginBottom: '70px' }}>
         <div className="row">
           <div className="col-md-12 ">{profileContent}</div>
         </div>
