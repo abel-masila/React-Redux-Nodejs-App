@@ -36,19 +36,21 @@ class Education extends Component {
     ));
     return (
       <div>
-        <h4 className="mb-4">Education</h4>
-        <table className="table table-hover">
-          <thead className="thead-dark">
-            <tr>
-              <th>School</th>
-              <th>Degree</th>
-              <th>Field Of Study</th>
-              <th>Years</th>
-              <th />
-            </tr>
-          </thead>
-          <tbody>{education}</tbody>
-        </table>
+        {education.length > 0 ? <h4 className="mb-4">Education</h4> : ''}
+        {education.length > 0 ? (
+          <table className="table table-hover">
+            <thead className="thead-dark">
+              <tr>
+                <th>School</th>
+                <th>Degree</th>
+                <th>Field Of Study</th>
+                <th>Years</th>
+                <th />
+              </tr>
+            </thead>
+            <tbody>{education}</tbody>
+          </table>
+        ) : null}
       </div>
     );
   }

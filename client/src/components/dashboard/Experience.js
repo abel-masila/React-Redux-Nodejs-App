@@ -35,18 +35,20 @@ class Experience extends Component {
     ));
     return (
       <div>
-        <h4 className="mb-4">Experience</h4>
-        <table className="table table-hover">
-          <thead className="thead-dark">
-            <tr>
-              <th>Company</th>
-              <th>Title</th>
-              <th>Years</th>
-              <th />
-            </tr>
-          </thead>
-          <tbody>{experience}</tbody>
-        </table>
+        {experience.length > 0 ? <h4 className="mb-4">Experience</h4> : ''}
+        {experience.length > 0 ? (
+          <table className="table table-hover">
+            <thead className="thead-dark">
+              <tr>
+                <th>Company</th>
+                <th>Title</th>
+                <th>Years</th>
+                <th />
+              </tr>
+            </thead>
+            <tbody>{experience}</tbody>
+          </table>
+        ) : null}
       </div>
     );
   }
