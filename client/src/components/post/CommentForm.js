@@ -66,7 +66,7 @@ CommentForm.propTypes = {
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
   addComment: PropTypes.func.isRequired,
-  postId: PropTypes.object.isRequired
+  postId: PropTypes.string
 };
 const mapStateToProps = state => ({
   auth: state.auth,
