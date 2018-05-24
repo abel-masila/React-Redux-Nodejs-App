@@ -49,6 +49,7 @@ router.post(
       avatar: req.body.avatar,
       user: req.user.id
     });
+    console.log(newPost);
     newPost
       .save()
       .then(post => {
