@@ -4,7 +4,7 @@ img {
 
 .landing {
   position: relative;
-  background: url("./img/showcase.jpg") no-repeat;
+  background: url('./img/showcase.jpg') no-repeat;
   background-size: cover;
   background-position: center;
   height: 100vh;
@@ -36,4 +36,12 @@ img {
 
 .form-control::placeholder {
   color: #bbb !important;
+}
+.footer {
+  height: 50px;
+  margin: 0 auto;
+}
+.footer > p {
+  text-align: center;
+  padding: 10px;
 }
